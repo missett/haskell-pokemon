@@ -1,8 +1,10 @@
 import System.IO
 import Read
+import Pokemon
 
 main = do
-	mainLoop
+	pokemon <- loadData "data/pokemon.csv"
+	mainLoop pokemon
 
 prompt :: String -> IO String
 prompt text = do
@@ -10,13 +12,14 @@ prompt text = do
 	hFlush stdout
 	getLine
 
-mainLoop :: IO ()
-mainLoop = do
+mainLoop :: [Pokemon] -> IO ()
+mainLoop p = do
 	input <- prompt ">>> "
-	print $ process input
-	mainLoop
+	print $ process p input
+	mainLoop p
 
--- Eventually this will do something with the input. For now we just return the input value.
-process :: String -> String
-process s = s
-	--foldr (++) $ map show $ loadData s
+process :: [Pokemon] -> String -> String
+process p s = foldr (++) "" $ map show $ search p s
+
+search :: [Pokemon] -> String -> [Pokemon]
+search ps n = filter (\p -> (name p) == (Name n)) ps 
