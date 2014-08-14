@@ -15,11 +15,11 @@ prompt text = do
 mainLoop :: [Pokemon] -> IO ()
 mainLoop p = do
 	input <- prompt ">>> "
-	print $ process p input
+	mapM_ print $ process p input
 	mainLoop p
 
-process :: [Pokemon] -> String -> String
-process p s = foldr (++) "" $ map show $ search p s
+process :: [Pokemon] -> String -> [Pokemon]
+process p s = search p s
 
 search :: [Pokemon] -> String -> [Pokemon]
 search ps n = filter (\p -> (name p) == (Name n)) ps 
