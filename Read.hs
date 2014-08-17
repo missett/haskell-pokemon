@@ -16,9 +16,9 @@ parseLine :: String -> Pokemon
 parseLine s = construct $ splitOn "," s
 
 construct :: [String] -> Pokemon
-construct (a:b:c:ps) = Pokemon  (Id (readNumber a :: Maybe Integer))
-								(Name b)
-								(Species (readNumber c :: Maybe Integer))
+construct (a:b:c:ps) = Pokemon  (readNumber a :: Maybe Integer)
+								b
+								(readNumber c :: Maybe Integer)
 
 readNumber :: String -> Maybe Integer
 readNumber s = if result == [] then Nothing else Just (fst $ result !! 0) 

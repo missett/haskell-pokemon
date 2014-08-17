@@ -1,6 +1,7 @@
 import System.IO
 import Read
 import Pokemon
+import Data.List
 
 main = do
 	pokemon <- loadData "data/pokemon.csv"
@@ -22,4 +23,5 @@ process :: [Pokemon] -> String -> [Pokemon]
 process p s = search p s
 
 search :: [Pokemon] -> String -> [Pokemon]
-search ps n = filter (\p -> (name p) == (Name n)) ps 
+search ps n = filter (\p -> isInfixOf n (name p)) ps
+
